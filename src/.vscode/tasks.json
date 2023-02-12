@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/GraphQL.PoC.csproj",
+                "${workspaceFolder}/GraphQL-PoC.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/GraphQL.PoC.csproj",
+                "${workspaceFolder}/GraphQL-PoC.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/GraphQL.PoC.csproj"
+                "${workspaceFolder}/GraphQL-PoC.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
