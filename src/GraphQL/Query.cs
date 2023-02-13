@@ -1,4 +1,3 @@
-using System.Linq;
 using GraphQLPoC.Data;
 using GraphQLPoC.Models;
 
@@ -6,7 +5,8 @@ namespace GraphQLPoC.GraphQL;
 
 public class Query
 {
-    public IQueryable<Platform> GetPlatform([Service] AppDbContext context)
+    [UseDbContext(typeof(AppDbContext))]
+    public IQueryable<Platform> GetPlatform([ScopedService] AppDbContext context)
     {
         return context.Platform;
     }
