@@ -195,7 +195,34 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation {\r\n   addPlatform(input:  {\r\n    name: \"Ubuntu\"\r\n   }) {\r\n     platform {\r\n         id name\r\n     }\r\n   }\r\n}",
+								"query": "mutation {\r\n   addPlatform(input:  {\r\n    name: \"RetHat\"\r\n   }) {\r\n     platform {\r\n         id name\r\n     }\r\n   }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Platform",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n   deletePlatform(platformId: 9) {\r\n       platform {\r\n           id name\r\n       }\r\n    }\r\n}",
 								"variables": ""
 							}
 						},
