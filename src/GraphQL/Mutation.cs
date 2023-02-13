@@ -33,7 +33,8 @@ public class Mutation
     }
 
     [UseDbContext(typeof(AppDbContext))]
-    public async Task<AddCommandPayload> AddCommandAsync(AddCommandInput input, [ScopedService] AppDbContext context)
+    public async Task<AddCommandPayload> AddCommandAsync(AddCommandInput input, [ScopedService] AppDbContext context,
+        [Service] ITopicEventSender eventSender, CancellationToken cancellationToken)
     {
         var command = new Command
         {
@@ -43,6 +44,7 @@ public class Mutation
         };
         await context.Commands.AddAsync(command);
         await context.SaveChangesAsync();
+        await eventSender.SendAsync(nameof(Subscription.OnCommandAdded), command, cancellationToken);
         return new AddCommandPayload(command);
     }
 }

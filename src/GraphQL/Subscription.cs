@@ -8,4 +8,9 @@ public class Subscription
     [Topic]
     public Platform OnPlatformAdded([EventMessage] Platform platform)
         => platform;
+
+    [Subscribe]
+    [Topic]
+    public Command OnCommandAdded([EventMessage] Command command)
+        => command;
 }
