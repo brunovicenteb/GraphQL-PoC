@@ -1,16 +1,19 @@
-using GraphQL.Server.Ui.Voyager;
 using GraphQLPoC.Data;
 using GraphQLPoC.GraphQL;
+using GraphQL.Server.Ui.Voyager;
+using GraphQLPoC.GraphQL.Platforms;
 using Microsoft.EntityFrameworkCore;
+using GraphQLPoC.GraphQL.Commands;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddPooledDbContextFactory<AppDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("CommandConString")));
 builder.Services
     .AddGraphQLServer()
-    .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true)
     .AddQueryType<Query>()
-    .AddProjections();
+    .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true)
+    .AddType<PlatformType>()
+    .AddType<CommandType>();
 
 var app = builder.Build();
 app.UseRouting();
