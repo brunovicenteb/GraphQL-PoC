@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GraphQLPoC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230212233934_AddPlatformToDb")]
+    [Migration("20230213131110_AddPlatformToDb")]
     partial class AddPlatformToDb
     {
         /// <inheritdoc />
@@ -23,6 +23,28 @@ namespace GraphQLPoC.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("GraphQLPoC.Models.Command", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("HowTo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PlatformId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlatformId");
+
+                    b.ToTable("Commands");
+                });
 
             modelBuilder.Entity("GraphQLPoC.Models.Platform", b =>
                 {
@@ -41,7 +63,23 @@ namespace GraphQLPoC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Platform");
+                    b.ToTable("Platforms");
+                });
+
+            modelBuilder.Entity("GraphQLPoC.Models.Command", b =>
+                {
+                    b.HasOne("GraphQLPoC.Models.Platform", "Platform")
+                        .WithMany("Commands")
+                        .HasForeignKey("PlatformId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Platform");
+                });
+
+            modelBuilder.Entity("GraphQLPoC.Models.Platform", b =>
+                {
+                    b.Navigation("Commands");
                 });
 #pragma warning restore 612, 618
         }
