@@ -29,6 +29,10 @@ namespace GraphQLPoC.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CommandLine")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("HowTo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

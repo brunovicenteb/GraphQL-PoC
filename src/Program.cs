@@ -9,7 +9,8 @@ builder.Services.AddPooledDbContextFactory<AppDbContext>(opt =>
 builder.Services
     .AddGraphQLServer()
     .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true)
-    .AddQueryType<Query>();
+    .AddQueryType<Query>()
+    .AddProjections();
 
 var app = builder.Build();
 app.UseRouting();

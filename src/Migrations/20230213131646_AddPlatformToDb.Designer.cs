@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GraphQLPoC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230213131110_AddPlatformToDb")]
+    [Migration("20230213131646_AddPlatformToDb")]
     partial class AddPlatformToDb
     {
         /// <inheritdoc />
@@ -31,6 +31,10 @@ namespace GraphQLPoC.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CommandLine")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HowTo")
                         .IsRequired()

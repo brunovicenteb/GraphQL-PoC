@@ -31,6 +31,7 @@ namespace GraphQLPoC.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     HowTo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CommandLine = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PlatformId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
