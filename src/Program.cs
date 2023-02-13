@@ -13,7 +13,9 @@ builder.Services
     .AddQueryType<Query>()
     .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true)
     .AddType<PlatformType>()
-    .AddType<CommandType>();
+    .AddType<CommandType>()
+    .AddFiltering()
+    .AddSorting();
 
 var app = builder.Build();
 app.UseRouting();
