@@ -136,7 +136,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query {\r\n    commands(where: {platformId:{eq: 1}}) {\r\n        howTo commandLine\r\n        platform {\r\n            name\r\n        }\r\n    }\r\n}",
+								"query": "query {\r\n    commands(where: {platformId:{eq: 4}}) {\r\n        howTo commandLine\r\n        platform {\r\n            name\r\n        }\r\n    }\r\n}",
 								"variables": ""
 							}
 						},
@@ -163,7 +163,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query {\r\n    commands(where: {platformId:{eq: 1}}) {\r\n        howTo commandLine\r\n        platform {\r\n            name\r\n        }\r\n    }\r\n}",
+								"query": "query {\r\n    platform(order: {name: ASC}) {\r\n        id, name\r\n    }\r\n}",
 								"variables": ""
 							}
 						},
@@ -196,6 +196,33 @@
 							"mode": "graphql",
 							"graphql": {
 								"query": "mutation {\r\n   addPlatform(input:  {\r\n    name: \"Ubuntu\"\r\n   }) {\r\n     platform {\r\n         id name\r\n     }\r\n   }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Command",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n   addCommand(input:  {\r\n    platformId: 4\r\n    howTo: \"Perform directory listing\"\r\n    commandLine: \"ls\"\r\n   }) {\r\n     command {\r\n         howTo commandLine\r\n         platform {\r\n             name\r\n         }\r\n     }\r\n   }\r\n}",
 								"variables": ""
 							}
 						},
