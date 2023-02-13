@@ -16,7 +16,6 @@ public class Mutation
         };
         await context.Platforms.AddAsync(platform);
         await context.SaveChangesAsync();
-
         return new AddPlatformPayload(platform);
     }
 
@@ -31,7 +30,6 @@ public class Mutation
         };
         await context.Commands.AddAsync(command);
         await context.SaveChangesAsync();
-
         return new AddCommandPayload(command);
     }
 }
