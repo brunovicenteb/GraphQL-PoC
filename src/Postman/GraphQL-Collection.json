@@ -1,0 +1,273 @@
+{
+	"info": {
+		"_postman_id": "f1de29fc-7858-4d4a-9aff-42cae8baa96c",
+		"name": "GraphQL-PoC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23753002"
+	},
+	"item": [
+		{
+			"name": "Queries",
+			"item": [
+				{
+					"name": "Get Platforms",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n    platform {\r\n        id name\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Parallel Platforms",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n    a: platform {\r\n        id name\r\n    }\r\n    b: platform {\r\n        id name\r\n    }\r\n    c: platform {\r\n        id name\r\n    }    \r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Platforms and Commands",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n    platform {\r\n        id name\r\n        commands {\r\n            id howTo commandLine\r\n        }\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Commands",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n    commands {\r\n        id howTo commandLine\r\n        platform {\r\n            id\r\n        }\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter Query",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n    commands(where: {platformId:{eq: 1}}) {\r\n        howTo commandLine\r\n        platform {\r\n            name\r\n        }\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sorting Query",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n    commands(where: {platformId:{eq: 1}}) {\r\n        howTo commandLine\r\n        platform {\r\n            name\r\n        }\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mutations",
+			"item": [
+				{
+					"name": "Add Platform",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n   addPlatform(input:  {\r\n    name: \"Ubuntu\"\r\n   }) {\r\n     platform {\r\n         id name\r\n     }\r\n   }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "69487ef896b8def0ec7a1fec55751217b7ee6e15d0083f11e0ca2364c62ea97d",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"console.log(pm.info.requestName)"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});",
+					"",
+					"",
+					"pm.test(\"Body matches string\", function () {",
+					"    pm.expect(pm.response.text()).to.include(\"OK.\");",
+					"});",
+					"",
+					"pm.test(\"Response time is less than 2seg\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url_base",
+			"value": "https://gorest.co.in/public/v2",
+			"type": "string"
+		},
+		{
+			"key": "id_user_delete",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
