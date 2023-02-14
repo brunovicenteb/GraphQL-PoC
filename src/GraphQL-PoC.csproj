@@ -9,12 +9,17 @@
   <ItemGroup>
     <PackageReference Include="GraphQL.Server.Ui.Voyager" Version="7.2.0" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="13.0.2" />
+    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="13.0.2" />
     <PackageReference Include="HotChocolate.Data.Entityframework" Version="13.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.3" />
     <PackageReference Include="Microsoft.EntityframeworkCore.Design" Version="7.0.2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityframeworkCore.SqlServer" Version="7.0.2" />
+    <PackageReference Include="Microsoft.OpenApi" Version="1.6.1" />
+    <PackageReference Include="Okta.AspNetCore" Version="4.4.2" />
+    <PackageReference Include="Okta.Sdk" Version="6.0.3" />
   </ItemGroup>
 
 </Project>
