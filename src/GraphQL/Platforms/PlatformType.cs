@@ -7,6 +7,7 @@ public class PlatformType : ObjectType<Platform>
 {
     protected override void Configure(IObjectTypeDescriptor<Platform> descriptor)
     {
+        descriptor.Authorize();
         descriptor
            .Description("Represents any software or service that has a command line interface.");
         descriptor
