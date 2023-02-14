@@ -30,7 +30,7 @@ public class CommandType : ObjectType<Command>
 
     private class Resolvers
     {
-        public Platform GetPlatform([Parent] Command command, [ScopedService] AppDbContext context)
+        public Platform GetPlatform([Parent] Command command, [Service(ServiceKind.Pooled)] AppDbContext context)
             => context.Platforms.FirstOrDefault(p => p.Id == command.PlatformId);
     }
 }

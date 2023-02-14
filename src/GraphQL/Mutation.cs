@@ -10,7 +10,7 @@ namespace GraphQLPoC.GraphQL;
 public class Mutation
 {
     [UseDbContext(typeof(AppDbContext))]
-    public async Task<AddPlatformPayload> AddPlatformAsync(AddPlatformInput input, [ScopedService] AppDbContext context,
+    public async Task<AddPlatformPayload> AddPlatformAsync(AddPlatformInput input, [Service(ServiceKind.Pooled)] AppDbContext context,
         [Service] ITopicEventSender eventSender, CancellationToken cancellationToken)
     {
         var platform = new Platform
@@ -24,7 +24,7 @@ public class Mutation
     }
 
     [UseDbContext(typeof(AppDbContext))]
-    public async Task<DeletePlatformPayload> DeletePlatformAsync(int platformId, [ScopedService] AppDbContext context)
+    public async Task<DeletePlatformPayload> DeletePlatformAsync(int platformId,  [Service(ServiceKind.Pooled)] AppDbContext context)
     {
         var platform = await context.Platforms.FirstOrDefaultAsync(o => o.Id == platformId);
         context.Platforms.Remove(platform);
@@ -33,7 +33,7 @@ public class Mutation
     }
 
     [UseDbContext(typeof(AppDbContext))]
-    public async Task<AddCommandPayload> AddCommandAsync(AddCommandInput input, [ScopedService] AppDbContext context,
+    public async Task<AddCommandPayload> AddCommandAsync(AddCommandInput input,  [Service(ServiceKind.Pooled)] AppDbContext context,
         [Service] ITopicEventSender eventSender, CancellationToken cancellationToken)
     {
         var command = new Command

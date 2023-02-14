@@ -7,8 +7,8 @@ public class PlatformType : ObjectType<Platform>
 {
     protected override void Configure(IObjectTypeDescriptor<Platform> descriptor)
     {
-         descriptor
-            .Description("Represents any software or service that has a command line interface.");
+        descriptor
+           .Description("Represents any software or service that has a command line interface.");
         descriptor
             .Field(p => p.Id)
             .Description("Represents the unique ID for the platform.");
@@ -27,7 +27,7 @@ public class PlatformType : ObjectType<Platform>
 
     private class Resolvers
     {
-        public IQueryable<Command> GetCommands([Parent] Platform platform, [ScopedService] AppDbContext context)
+        public IQueryable<Command> GetCommands([Parent] Platform platform, [Service(ServiceKind.Pooled)] AppDbContext context)
             => context.Commands.Where(p => p.PlatformId == platform.Id);
     }
 }
