@@ -8,15 +8,15 @@ public class Query
     [UseDbContext(typeof(AppDbContext))]
     [UseFiltering]
     [UseSorting]
-    public IQueryable<Platform> GetPlatform([ScopedService] AppDbContext context)
+    public IQueryable<Platform> GetPlatform([Service(ServiceKind.Pooled)] AppDbContext context)
     {
         return context.Platforms;
     }
-
+    
     [UseDbContext(typeof(AppDbContext))]
     [UseFiltering]
     [UseSorting]
-    public IQueryable<Command> GetCommands([ScopedService] AppDbContext context)
+    public IQueryable<Command> GetCommands([Service(ServiceKind.Pooled)] AppDbContext context)
     {
         return context.Commands;
     }
