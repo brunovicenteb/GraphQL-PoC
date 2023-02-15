@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Okta.AspNetCore;
 
 namespace GraphQLPoC.Autentication;
@@ -10,27 +11,17 @@ public static class OktaBuilder
     public static void UseOka(this WebApplicationBuilder builder)
     {
         CreateConfiguration(builder);
-        // services.AddCors(options =>
-        // {
-        //     // The CORS policy is open for testing purposes. In a production application, you should restrict it to known origins.
-        //     options.AddPolicy("AllowAll", builder => builder.AllowAnyOrigin()
-        //                                                 .AllowAnyMethod()
-        //                                                 .AllowAnyHeader());
-        // });
         builder.Services.AddAuthentication(options =>
         {
-            options.DefaultAuthenticateScheme = OktaDefaults.ApiAuthenticationScheme;
-            options.DefaultChallengeScheme = OktaDefaults.ApiAuthenticationScheme;
-            options.DefaultSignInScheme = OktaDefaults.ApiAuthenticationScheme;
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
         })
-        .AddOktaWebApi(new OktaWebApiOptions
+        .AddJwtBearer(options =>
         {
-            OktaDomain =$"https://{TokenSettings.Domain}/oauth2/default",
-            AuthorizationServerId = TokenSettings.AutorizationServerId,
-            //Audience = audience
+            options.Authority = $"https://{TokenSettings.Domain}/oauth2/default";
+            options.Audience = TokenSettings.Audience;
+            options.RequireHttpsMetadata = true;
         });
         builder.Services.AddAuthorization();
-        builder.Services.AddSingleton<OktaTokenService>();
     }
 
     private static void CreateConfiguration(this WebApplicationBuilder builder)
