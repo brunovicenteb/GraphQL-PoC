@@ -2,24 +2,17 @@ using GraphQLPoC.Data;
 using GraphQLPoC.GraphQL;
 using GraphQLPoC.Autentication;
 using GraphQL.Server.Ui.Voyager;
+using GraphQLPoC.GraphQL.Tokens;
+using GraphQLPoC.GraphQL.Commands;
 using GraphQLPoC.GraphQL.Platforms;
 using Microsoft.EntityFrameworkCore;
-using GraphQLPoC.GraphQL.Commands;
 using Microsoft.Extensions.ObjectPool;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Okta.AspNetCore;
-using Microsoft.IdentityModel.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//builder.UseOka();
-
-var pool = new DefaultObjectPool<AppDbContext>(new DefaultPooledObjectPolicy<AppDbContext>());
-
 builder.UseOka();
 
+var pool = new DefaultObjectPool<AppDbContext>(new DefaultPooledObjectPolicy<AppDbContext>());
 builder.Services.AddSingleton<ObjectPool<AppDbContext>>(pool);
 builder.Services.AddPooledDbContextFactory<AppDbContext>(opt =>
      opt.UseSqlServer(builder.Configuration.GetConnectionString("CommandConString")));
@@ -31,6 +24,7 @@ builder.Services
     .AddMutationType<Mutation>()
     .AddSubscriptionType<Subscription>()
     .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = builder.Environment.IsDevelopment())
+    .AddType<OktaResponseType>()
     .AddType<PlatformType>()
     .AddType<CommandType>()
     .AddFiltering()

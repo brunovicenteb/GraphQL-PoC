@@ -7,6 +7,7 @@ public class CommandType : ObjectType<Command>
 {
     protected override void Configure(IObjectTypeDescriptor<Command> descriptor)
     {
+        descriptor.Authorize();
         descriptor
             .Description("Represents any executable command");
         descriptor

@@ -6,50 +6,49 @@ namespace GraphQLPoC.Autentication;
 
 public class OktaTokenService
 {
-    //private OktaResponse token = new();
+    private OktaResponse _Token = new();
 
-    //public async Task<OktaResponse> GetToken()
-    //{
-    //    if (!token.IsValidAndNotExpiring)
-    //        token = await GetNewAccessToken();
-    //    return token;
-    //}
+    public async Task<OktaResponse> GetToken()
+    {
+       if (!_Token.IsValidAndNotExpiring)
+           _Token = await GetNewAccessToken();
+       return _Token;
+    }
 
-    //private async Task<OktaResponse> GetNewAccessToken()
-    //{
-    //    var client = new HttpClient();
-    //    var client_id = OktaBuilder.TokenSettings.ClientId;
-    //    var client_secret = OktaBuilder.TokenSettings.ClientSecret;
-    //    var clientCreds = Encoding.UTF8.GetBytes($"{client_id}:{client_secret}");
-    //    client.DefaultRequestHeaders.Authorization =
-    //        new AuthenticationHeaderValue("Basic", Convert.ToBase64String(clientCreds));
+    private async Task<OktaResponse> GetNewAccessToken()
+    {
+       using var client = new HttpClient();
+       var clientId = OktaBuilder.TokenSettings.ClientId;
+       var clientSecret = OktaBuilder.TokenSettings.ClientSecret;
+       var clientCreds = Encoding.UTF8.GetBytes($"{clientId}:{clientSecret}");
+       client.DefaultRequestHeaders.Authorization =
+           new AuthenticationHeaderValue("Basic", Convert.ToBase64String(clientCreds));
 
-    //    var postMessage = new Dictionary<string, string>
-    //    {
-    //        { "grant_type", "client_credentials" },
-    //        { "scope", "access_token" }
-    //    };
-    //    var tokenUrl = $"{OktaBuilder.TokenSettings.Domain}/oauth2/default/v1/token";
-    //    var request = new HttpRequestMessage(HttpMethod.Post, tokenUrl)
-    //    {
-    //        Content = new FormUrlEncodedContent(postMessage)
-    //    };
+       var postMessage = new Dictionary<string, string>
+       {
+           { "grant_type", "client_credentials" },
+           { "scope", "access_token" }
+       };
+       var tokenUrl = $"https://{OktaBuilder.TokenSettings.Domain}/oauth2/default/v1/token";
+       var request = new HttpRequestMessage(HttpMethod.Post, tokenUrl)
+       {
+           Content = new FormUrlEncodedContent(postMessage)
+       };
 
-    //    var response = await client.SendAsync(request);
-    //    if (response.IsSuccessStatusCode)
-    //    {
-    //        //var json = await response.Content.ReadAsStringAsync();
-    //        //token = JsonConvert.DeserializeObject<OktaToken>(json);
-    //        //token.ExpiresAt = DateTime.UtcNow.AddSeconds(token.ExpiresIn);
-    //        var jsonSerializerSettings = new JsonSerializerSettings();
-    //        var json = await response.Content.ReadAsStringAsync();
-    //        var token = JsonConvert.DeserializeObject<OktaResponse>(json, jsonSerializerSettings);
-    //        token.ExpiresAt = DateTime.UtcNow.AddSeconds(token.ExpiresIn);
-    //        return token;
-    //    }
-    //    throw new ApplicationException("Unable to retrieve access token from Okta");
-    //}
-
+       var response = await client.SendAsync(request);
+       if (response.IsSuccessStatusCode)
+       {
+           //var json = await response.Content.ReadAsStringAsync();
+           //token = JsonConvert.DeserializeObject<OktaToken>(json);
+           //token.ExpiresAt = DateTime.UtcNow.AddSeconds(token.ExpiresIn);
+           var jsonSerializerSettings = new JsonSerializerSettings();
+           var json = await response.Content.ReadAsStringAsync();
+           var token = JsonConvert.DeserializeObject<OktaResponse>(json, jsonSerializerSettings);
+           token.ExpiresAt = DateTime.UtcNow.AddSeconds(token.ExpiresIn);
+           return token;
+       }
+       throw new ApplicationException("Unable to retrieve access token from Okta");
+    }
 
     public async Task<OktaResponse> GetToken(string username, string password)
     {

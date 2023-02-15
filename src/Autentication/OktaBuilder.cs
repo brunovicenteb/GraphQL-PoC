@@ -22,6 +22,7 @@ public static class OktaBuilder
             options.RequireHttpsMetadata = true;
         });
         builder.Services.AddAuthorization();
+        builder.Services.AddScoped<OktaTokenService>();
     }
 
     private static void CreateConfiguration(this WebApplicationBuilder builder)
