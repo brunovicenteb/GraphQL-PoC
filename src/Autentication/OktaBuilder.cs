@@ -27,7 +27,7 @@ public static class OktaBuilder
 
     private static void CreateConfiguration(this WebApplicationBuilder builder)
     {
-        var clientId = builder.Configuration["Okta:Authority"];
+        var clientId = builder.Configuration["Authentication:Authority"];
         var clientSecret = builder.Configuration["Authentication:Secret"];
         var domain = builder.Configuration["Authentication:Domain"];
         var autorizationServerId = builder.Configuration["Authentication:ServerId"];
