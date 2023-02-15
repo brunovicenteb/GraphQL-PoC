@@ -109,7 +109,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query {\r\n    commands {\r\n        id howTo commandLine\r\n        platform {\r\n            id\r\n        }\r\n    }\r\n}",
+								"query": "query {\r\n    commands {\r\n        id howTo commandLine\r\n        platform {\r\n            name\r\n        }\r\n    }\r\n}",
 								"variables": ""
 							}
 						},
@@ -137,6 +137,33 @@
 							"mode": "graphql",
 							"graphql": {
 								"query": "query {\r\n    commands(where: {platformId:{eq: 4}}) {\r\n        howTo commandLine\r\n        platform {\r\n            name\r\n        }\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Complex Filter Query",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n    commands(where: {\r\n        platformId:{eq: 5}\r\n        or: [{ commandLine: { contains: \"clean\" } }, { howTo: { contains: \"Start\" } }]\r\n    }) {\r\n        howTo commandLine\r\n        platform {\r\n            name\r\n        }\r\n    }\r\n}",
 								"variables": ""
 							}
 						},
@@ -195,7 +222,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation {\r\n   addPlatform(input:  {\r\n    name: \"RetHat\"\r\n   }) {\r\n     platform {\r\n         id name\r\n     }\r\n   }\r\n}",
+								"query": "mutation {\r\n   addPlatform(input:  {\r\n    name: \"Erlang\"\r\n   }) {\r\n     platform {\r\n         id name\r\n     }\r\n   }\r\n}",
 								"variables": ""
 							}
 						},
@@ -249,7 +276,39 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation {\r\n   addCommand(input:  {\r\n    platformId: 4\r\n    howTo: \"Perform directory listing\"\r\n    commandLine: \"ls\"\r\n   }) {\r\n     command {\r\n         howTo commandLine\r\n         platform {\r\n             name\r\n         }\r\n     }\r\n   }\r\n}",
+								"query": "mutation {\r\n   addCommand(input:  {\r\n    platformId: 10\r\n    howTo: \"Start erlang application from command line\"\r\n    commandLine: \"erl -pa ebin -eval \\\"application:start($APP_NAME)\\\"\"\r\n   }) {\r\n     command {\r\n         howTo commandLine\r\n         platform {\r\n             name\r\n         }\r\n     }\r\n   }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Credentials",
+			"item": [
+				{
+					"name": "Get Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n    platform {\r\n        id name\r\n    }\r\n}",
 								"variables": ""
 							}
 						},
@@ -276,7 +335,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "69487ef896b8def0ec7a1fec55751217b7ee6e15d0083f11e0ca2364c62ea97d",
+				"value": "eyJraWQiOiJwemtKakN6aUROWlZGRnRXSHdtdi1qN2FxRlY3UTJXZzQ2MDhhZm8tU0Q0IiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULkhTR2kyZFl1bldXNDlNSF9aX2lmM0I2QkJDQzBJenJFMWdqck56R0NoaUEiLCJpc3MiOiJodHRwczovL2Rldi04OTgxMDkyOC5va3RhLmNvbS9vYXV0aDIvZGVmYXVsdCIsImF1ZCI6ImFwaTovL2RlZmF1bHQiLCJpYXQiOjE2NzY0NzEyMjAsImV4cCI6MTY3NjQ3NDgyMCwiY2lkIjoiMG9hNm9hdGJzemFwNk5Yb1M1ZDciLCJzY3AiOlsiYWNjZXNzX3Rva2VuIl0sInN1YiI6IjBvYTZvYXRic3phcDZOWG9TNWQ3In0.pYWdrDEz50gqUG9WxQzMVycgNQIZfEppTolqDe9OcxMaFaSR62WzpPMG8-qfswzQG7tMCI1l6GDpOeOhRWBuOESqFOwnGnWSNZolz0FYg6-ppey4K32A8vSCQgZZt9teNOmuk5jnxvU5CQ8UrMznDtkV7fXZifTlwf914BMJ0CAuU3wbjA1YTlV5QL_ZvjxK6Y2l_fXZJSUzzwnP85VtQNlyAVUEHwTdJkBdyYuBmy7WqQlDzmXwBYWgAa2lBqcowWRlgXllh3uBA_M0A1Wolk_u8D6lNa_pJEuaAU_p9hPA7_-klsTXeNMRCJMHuMyuN85FWF4hMU7ZA-0GfJk0lg",
 				"type": "string"
 			}
 		]
